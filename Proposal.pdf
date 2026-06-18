@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <center>
+    <head>
+        <title>
+            contact page
+        </title>
+          <link rel="stylesheet"type="text/css" href="index.css">
+          <script src="ind.js"></script>
+    </head>
+    <body>
+        <header>
+
+<img src="C:\Users\Student\Desktop\MME CAFE ST_10532691\IMAGES\kota.jpeg" style="width:50px; height :50px;">
+<nav>
+<a href="home.html">Home|</a>
+<a href="menu.html">Menu|</a>
+<a href="about.html">About|</a>
+<a href="service.html">Service|</a>
+<a href="news.html">News|</a>
+<a href="contact.html">Contact</a>
+</nav>
+    </header>
+<main>
+    <h1><u>MME CAFE</u></h1>
+<h2><i>Mmmmhh Yummmy</i></h2>
+<p>17 Jorissen St Johannesburg 2001</p><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.1298480992773!2d28.034286000000005!3d-26.192454!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c1bb2ad5483%3A0xffc2ed86c651c235!2sBraamfontein%20Centre%2C%2023%20Jorissen%20St%2C%20Braamfontein%2C%20Johannesburg%2C%202017%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1776343003222!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<BR>
+<img src="C:\Users\Student\Desktop\MME CAFE ST_10532691\IMAGES\fone.jpg" style="width: 50PX; height: 50PX;">
+<h4>PHONE</h4>
+<p>+27649460947</p>
+<h5>EMAIL</h5>
+<p>mphomatsea@icloud.com</p>
+<h6>OPEN HOURS</h6>
+<p>Monday-Friday: 08:15-18:00</p>
+<p>Saturday-Sunday:09:00-17:00</p>
+
+<!-- ===== CONTACT & ORDER FORM ===== -->
+<br>
+<h3><u>Send Us a Message or Place an Order</u></h3>
+
+<table border="1" cellspacing="10" cellpadding="10" style="max-width:620px;">
+
+  <tr>
+    <td>
+      <label for="cf_fname">First Name *</label><br>
+      <input type="text" id="cf_fname" placeholder="First name" style="width:100%; padding:6px;">
+    </td>
+    <td>
+      <label for="cf_lname">Last Name *</label><br>
+      <input type="text" id="cf_lname" placeholder="Last name" style="width:100%; padding:6px;">
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <label for="cf_email">Email Address *</label><br>
+      <input type="email" id="cf_email" placeholder="you@example.com" style="width:100%; padding:6px;">
+    </td>
+    <td>
+      <label for="cf_phone">Phone Number</label><br>
+      <input type="tel" id="cf_phone" placeholder="+27 6X XXX XXXX" style="width:100%; padding:6px;">
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <b>Order Type</b><br>
+      <label><input type="radio" name="cf_type" value="Dine In" checked> Dine In</label> &nbsp;
+      <label><input type="radio" name="cf_type" value="Takeaway"> Takeaway</label> &nbsp;
+      <label><input type="radio" name="cf_type" value="Enquiry Only"> Enquiry Only</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b> KOTAS </b></td>
+  </tr>
+
+  <tr>
+    <td>
+      <label><input type="checkbox" name="cf_item" value="THANDO - R50"> THANDO &mdash; R50</label><br>
+      <label><input type="checkbox" name="cf_item" value="MPHO - R75"> MPHO &mdash; R75</label><br>
+      <label><input type="checkbox" name="cf_item" value="GIFT - R45"> GIFT &mdash; R45</label>
+    </td>
+    <td>
+      <label><input type="checkbox" name="cf_item" value="KUTLWANO - R55"> KUTLWANO &mdash; R55</label><br>
+      <label><input type="checkbox" name="cf_item" value="NONANI - R30"> NONANI &mdash; R30</label><br>
+      <label><input type="checkbox" name="cf_item" value="ESTHER - R39"> ESTHER &mdash; R39</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b>FRIES &amp; SIDES </b></td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <label><input type="checkbox" name="cf_item" value="LOADED MOMMA - R45"> LOADED MOMMA &mdash; R45</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b> DRINKS </b></td>
+  </tr>
+
+  <tr>
+    <td>
+      <label><input type="checkbox" name="cf_item" value="CAPPY - R20"> CAPPY &mdash; R20</label><br>
+      <label><input type="checkbox" name="cf_item" value="JUTT COFFEE - R30"> JUTT COFFEE &mdash; R30</label><br>
+      <label><input type="checkbox" name="cf_item" value="BOSSLADY - R25"> BOSSLADY &mdash; R25</label>
+    </td>
+    <td>
+      <label><input type="checkbox" name="cf_item" value="ICE COFFEE - R29"> ICE COFFEE &mdash; R29</label><br>
+      <label><input type="checkbox" name="cf_item" value="COLDDRINK - R18"> COLDDRINK &mdash; R18</label><br>
+      <label><input type="checkbox" name="cf_item" value="FORTUNE TELLER - FREE"> FORTUNE TELLER &mdash; FREE</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <label for="cf_msg"><b>Special Instructions / Message</b></label><br>
+      <textarea id="cf_msg" rows="4" placeholder="Any extras, allergies, or questions..." style="width:100%; padding:6px;"></textarea>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <button type="button" onclick="submitCafeForm()" style="padding:10px 28px; background:#8B4513; color:#fff; border:none; font-size:15px; cursor:pointer;">
+        Submit
+      </button>
+    </td>
+  </tr>
+
+</table>
+
+<div id="cf_summary" style="display:none; border:1px solid #ccc; padding:14px; max-width:620px; background:#fffbe6; margin-top:10px;">
+  <b>&#10003; Received! Your order summary:</b>
+  <p id="cf_summary_text" style="white-space:pre-line;"></p>
+  <p style="color:gray; font-size:13px;">We will contact you to confirm. Thank you for choosing MME Cafe!</p>
+</div>
+<!-- ===== END OF FORM ===== -->
+
+</main>    
+ <footer>
+  <p style="color: #ffffff;">&copy; 2026 MME Cafe &middot; ST10532691 &mdash; Proudly serving Johannesburg one kota at a time. 
+  Every meal we make is prepared with fresh ingredients, real flavour, and genuine love for our community. 
+  Whether you dine in or take away, your satisfaction is always our priority. 
+  Thank you for choosing MME Cafe &mdash; where good food brings people together.
+  <p style="color: #ffffff;" id="datetime"></p>
+  </p>
+</footer>
+<script>
+        // Mobile navigation toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+ // Date and time in footer
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        // Update date time immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Order form submit
+        function submitCafeForm() {
+          var fname = document.getElementById('cf_fname').value.trim();
+          var lname = document.getElementById('cf_lname').value.trim();
+          var email = document.getElementById('cf_email').value.trim();
+          var phone = document.getElementById('cf_phone').value.trim();
+          var msg   = document.getElementById('cf_msg').value.trim();
+
+          if (!fname || !email) {
+            alert('Please enter your first name and email address.');
+            return;
+          }
+
+          var orderType = document.querySelector('input[name="cf_type"]:checked').value;
+          var checked   = document.querySelectorAll('input[name="cf_item"]:checked');
+
+          if (orderType !== 'Enquiry Only' && checked.length === 0) {
+            alert('Please select at least one menu item, or choose Enquiry Only.');
+            return;
+          }
+
+          var items = [];
+          var total = 0;
+          checked.forEach(function(cb) {
+            items.push('  - ' + cb.value);
+            var m = cb.value.match(/R(\d+)/);
+            if (m) total += parseInt(m[1]);
+          });
+
+          var summary = 'Name: ' + fname + ' ' + lname + '\n'
+                      + 'Email: ' + email + '\n'
+                      + (phone ? 'Phone: ' + phone + '\n' : '')
+                      + 'Order type: ' + orderType + '\n';
+
+          if (items.length > 0) {
+            summary += '\nItems:\n' + items.join('\n') + '\n\nEstimated Total: R' + total;
+          }
+          if (msg) summary += '\n\nNote: ' + msg;
+
+          document.getElementById('cf_summary_text').textContent = summary;
+          document.getElementById('cf_summary').style.display = 'block';
+          document.getElementById('cf_summary').scrollIntoView({ behavior: 'smooth' });
+        }
+</script>
+
+</body>
+</center>
+</html>

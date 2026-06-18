@@ -1,0 +1,654 @@
+@import url('https://fonts.googleapis.com/css2?family=playfair+Display:ital,wght@0,400;0,0,700;1,400%family=Lato:wght@300;400;700&display=swap');
+  /* ============================================================
+   MME CAFE — index.css
+   Professional Luxury Street Food Theme
+   Palette: Charcoal Black · Warm Brown · Cream/Beige · Gold
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;600;700&display=swap');
+
+/* ----------------------------------------------------------
+   CSS VARIABLES
+---------------------------------------------------------- */
+:root {
+  --cream:         #f0e8d8;
+  --cream-light:   #f8f3ea;
+  --cream-dark:    #d9cdb8;
+
+  --brown:         #5c3d2e;
+  --brown-mid:     #7a5140;
+  --brown-light:   #c49a7a;
+
+  --gold:          #c09a3a;
+  --gold-light:    #d9b86a;
+  --gold-dark:     #8a6d2f;
+  --gold-glow:     rgba(192, 154, 58, 0.18);
+  --gold-rule:     rgba(192, 154, 58, 0.4);
+
+  --charcoal:      #1a1714;
+  --charcoal-mid:  #3a3530;
+  --charcoal-soft: #6a6055;
+
+  --white:         #ffffff;
+
+  --font-heading:  'Playfair Display', Georgia, serif;
+  --font-body:     'DM Sans', Verdana, sans-serif;
+
+  --shadow-sm:     0 2px 8px rgba(0,0,0,0.10);
+  --shadow-md:     0 6px 24px rgba(0,0,0,0.16);
+  --shadow-lg:     0 12px 48px rgba(0,0,0,0.22);
+  --shadow-gold:   0 4px 20px rgba(192, 154, 58, 0.25);
+
+  --radius:        6px;
+  --transition:    0.28s ease;
+  --gutter:        48px;
+}
+
+/* ----------------------------------------------------------
+   RESET & BASE
+---------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Override the <center> tag so it doesn't break the layout */
+center {
+  display: block;
+  text-align: left;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--charcoal-mid);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.78;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--charcoal-mid);
+  max-width: 680px;
+}
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY — h1 through h6 + non-standard h7
+---------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6, h7 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+  color: var(--charcoal);
+}
+
+/* h1: Page / café title */
+h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  /* remove underline from <u> inside h1 and style it ourselves */
+}
+h1 u {
+  text-decoration: none;
+  border-bottom: 3px solid var(--gold);
+  padding-bottom: 4px;
+}
+
+/* hero h1 handled separately */
+.hero-title {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: var(--white) !important;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+  letter-spacing: 0.02em;
+}
+
+/* h2 */
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--brown);
+}
+
+/* h3: tagline / subtitle */
+h3 {
+  font-size: 1.15rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-dark);
+  margin-bottom: 1.5rem;
+}
+h3 i { font-style: italic; }
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.90) !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  margin-bottom: 2rem !important;
+}
+
+/* h4: section headers (LATEST NEWS, OUR SERVICE, PHONE) */
+h4 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 2rem;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-left: 14px;
+}
+h4::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+/* h5: sub-section */
+h5 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--brown);
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+/* h6 */
+h6 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--charcoal);
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+/* h7 — non-standard, treat like h6 */
+h7 {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--charcoal);
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+/* .logo class on the index/hero page h1 */
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------
+   HEADER
+---------------------------------------------------------- */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  height: 76px;
+  background-color: var(--charcoal);
+  border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: var(--shadow-md);
+  gap: 24px;
+}
+
+/* Logo image in header */
+header > img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------
+   NAVIGATION
+---------------------------------------------------------- */
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+nav a {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), background var(--transition), border-color var(--transition);
+  white-space: nowrap;
+}
+
+nav a:hover {
+  color: var(--gold-light);
+  border-bottom-color: var(--gold-light);
+  background: rgba(255,255,255,0.05);
+}
+nav a:visited { color: var(--cream); }
+nav a:active  { color: var(--gold); }
+
+/* ----------------------------------------------------------
+   MAIN CONTENT AREA
+---------------------------------------------------------- */
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 52px var(--gutter) 64px;
+}
+
+/* ----------------------------------------------------------
+   HERO SECTION (index / home with .hero class)
+---------------------------------------------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  background: linear-gradient(
+    135deg,
+    var(--charcoal) 0%,
+    var(--brown) 50%,
+    var(--charcoal-mid) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative grain overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 30% 60%, rgba(192,154,58,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 75% 30%, rgba(92,61,46,0.3) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px var(--gutter);
+  width: 100%;
+}
+
+.hero-overlay h1.hero-title {
+  animation: fadeUp 0.9s ease both;
+}
+
+.hero-overlay h3.hero-subtitle {
+  animation: fadeUp 0.9s 0.2s ease both;
+}
+
+.hero-overlay button {
+  animation: fadeUp 0.9s 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   BUTTONS
+---------------------------------------------------------- */
+button {
+  display: inline-block;
+  background-color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+button:hover {
+  background-color: var(--gold-dark);
+  border-color: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+button a {
+  display: inline-block;
+  padding: 13px 40px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+}
+button a:hover,
+button a:visited,
+button a:active { color: var(--white); text-decoration: none; }
+
+/* ----------------------------------------------------------
+   HOME PAGE TABLE (menu grid)
+---------------------------------------------------------- */
+table {
+  border-collapse: separate;
+  border-spacing: 16px;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 820px;
+  border: none !important;
+}
+
+table tr td {
+  background: var(--cream-light);
+  border: 1px solid var(--cream-dark) !important;
+  border-radius: var(--radius);
+  padding: 0 !important;
+  overflow: hidden;
+  vertical-align: top;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 50%;
+}
+
+table tr td:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Images inside table cells */
+table tr td img {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* Text below image in each cell */
+table tr td br + br,
+table tr td img + br { display: none; }
+
+/* Wrap item name and price — target text nodes by styling td itself */
+table tr td {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+/* The text/name/price node inside td */
+table tr td > br,
+table tr td {
+  line-height: 1.4;
+}
+
+/* Gold accent bar on bottom of each cell */
+table tr td::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(to right, var(--gold), var(--brown-light));
+  margin-top: 0;
+}
+
+/* Price-like lines — any plain text in td after the image */
+table td {
+  padding: 0 0 12px 0 !important;
+}
+
+table td img {
+  margin-bottom: 0;
+}
+
+/* Style the item name / price text area */
+table td > br {
+  display: none;
+}
+
+/* Inner text padding using pseudo approach */
+table td::before {
+  content: '';
+  display: block;
+}
+
+/* Hacky but effective: the text lines after <img> in each td */
+table td {
+  position: relative;
+}
+
+/* We can't add wrappers but we can use padding on the cell bottom */
+table td {
+  padding-bottom: 14px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+/* ----------------------------------------------------------
+   CONTACT PAGE — iframe map
+---------------------------------------------------------- */
+iframe {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  height: 380px;
+  border: 3px solid var(--gold) !important;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-md);
+}
+
+/* Phone image in contact */
+main > img {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  object-fit: cover;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* <BR> tags — minimise their visual impact */
+br { line-height: 0.5; }
+
+/* ----------------------------------------------------------
+   FOOTER
+---------------------------------------------------------- */
+footer {
+  background-color: var(--charcoal);
+  border-top: 3px solid var(--gold);
+  color: var(--cream);
+  padding: 28px var(--gutter);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--cream-dark);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 0 auto 16px;
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------------------
+   PAGE ENTRY ANIMATION
+---------------------------------------------------------- */
+main {
+  animation: pageFade 0.6s ease both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   CONTENT SECTIONS — news & service paragraph blocks
+---------------------------------------------------------- */
+main > h4,
+main > h5,
+main > h6,
+main > h7 {
+  margin-top: 2.4rem;
+}
+
+main > h4 + p,
+main > h5 + p,
+main > h6 + p,
+main > h7 + p {
+  padding-left: 14px;
+  border-left: 2px solid var(--gold-rule);
+  margin-bottom: 0.5rem;
+}
+
+/* ----------------------------------------------------------
+   ADDRESS TEXT (contact page)
+---------------------------------------------------------- */
+main > p:first-of-type {
+  font-weight: 600;
+  color: var(--brown-mid);
+  font-size: 1rem;
+}
+
+/* ----------------------------------------------------------
+   SELECTION & SCROLLBAR
+---------------------------------------------------------- */
+::selection {
+  background-color: var(--gold);
+  color: var(--white);
+}
+
+::-webkit-scrollbar       { width: 7px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root { --gutter: 24px; }
+
+  header {
+    padding: 0 20px;
+    height: 64px;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    gap: 10px;
+  }
+
+  nav {
+    gap: 2px;
+  }
+
+  nav a {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  main {
+    padding: 36px var(--gutter) 48px;
+  }
+
+  table {
+    border-spacing: 10px;
+  }
+
+  table tr td img {
+    height: 160px !important;
+  }
+
+  iframe {
+    height: 280px;
+  }
+
+  .hero {
+    min-height: 380px;
+  }
+
+  .hero-overlay {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root { --gutter: 16px; }
+
+  table {
+    border-spacing: 8px;
+  }
+
+  table tr td img {
+    height: 130px !important;
+  }
+
+  table tr td {
+    font-size: 0.82rem;
+  }
+}

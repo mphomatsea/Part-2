@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <center>
+<head>
+    <meta charset="UTF-8">
+    <title>MME Cafe</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1 class="logo">MME Cafe</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="about.html">About</a>
+            <a href="service.html">Service</a>
+            <a href="news.html">News</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+   
+    <section class="hero">
+        <div class="hero-overlay">
+            <h1 class="hero-title">Welcome to MME Cafe</h1>
+            <h3 class="hero-subtitle">Mmmmhh Yummmy</h3>
+            <button><a href="menu.html">See Menu</a></button>
+        </div>
+    </section>
+
+    <footer>
+        &copy; ST10532691
+    </footer>
+</body>
+</center>
+</html>

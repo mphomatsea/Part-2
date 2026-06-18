@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <center>
+    <head>
+        <title>
+            about page
+        </title>
+         <link rel="stylesheet" href="index.css">
+         <script src="ind.js"></script>
+    </head>
+    <body>
+        <header>
+
+<img src="C:\Users\Student\Desktop\MME CAFE ST_10532691\IMAGES\kota.jpeg" style="width:50px; height :50px;">
+<nav>
+<a href="home.html">Home|</a>
+<a href="menu.html">Menu|</a>
+<a href="about.html">About|</a>
+<a href="service.html">Service|</a>
+<a href="news.html">News|</a>
+<a href="contact.html">Contact</a>
+</nav>
+    </header>
+<main>
+    <h1><u>MME CAFE</u></h1>
+<h3><i>Mmmmhh Yummmy</i></h3>
+
+  <p>At MME CAFE,we serve delicious,fresh and juicy kotas packed with flavour and made with love. 
+    Our goal is to bring people together through good food that is affordable,filling and unforgettable.
+     Every kota is prepared using quality ingredients to give you the best taste in every bite.
+</p>
+
+</main>    
+<footer> 
+    <p style="color: #ffffff;">&copy; 2026 MME Cafe &middot; ST10532691 &mdash; Proudly serving Johannesburg one kota at a time. 
+  Every meal we make is prepared with fresh ingredients, real flavour, and genuine love for our community. 
+  Whether you dine in or take away, your satisfaction is always our priority. 
+  Thank you for choosing MME Cafe &mdash; where good food brings people together.
+  <p style="color: #ffffff;" id="datetime"></p>
+  </p>
+</footer>
+ <script>
+        // Mobile navigation toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+             // Date and time in footer
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        // Update date time immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+</script>
+</body>
+</center>
+</html>

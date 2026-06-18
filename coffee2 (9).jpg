@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <center>
+    <head>
+        <title>
+            contact page
+        </title>
+          <link rel="stylesheet"type="text/css" href="index.css">
+    </head>
+    <body>
+        <header>
+
+<img src="C:\Users\Student\Desktop\MME CAFE ST_10532691\IMAGES\kota.jpeg" style="width:50px; height :50px;">
+<nav>
+<a href="home.html">Home|</a>
+<a href="menu.html">Menu|</a>
+<a href="about.html">About|</a>
+<a href="service.html">Service|</a>
+<a href="news.html">News|</a>
+<a href="contact.html">Contact</a>
+</nav>
+    </header>
+<main>
+    <h1><u>MME CAFE</u></h1>
+<h3><i>Mmmmhh Yummmy</i></h3>
+<p>17 Jorissen St Johannesburg 2001</p><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.1298480992773!2d28.034286000000005!3d-26.192454!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c1bb2ad5483%3A0xffc2ed86c651c235!2sBraamfontein%20Centre%2C%2023%20Jorissen%20St%2C%20Braamfontein%2C%20Johannesburg%2C%202017%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1776343003222!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<BR>
+<img src="C:\Users\Student\Desktop\MME CAFE ST_10532691\IMAGES\fone.jpg" style="width: 50PX; height: 50PX;">
+<h4>PHONE</h4>
+<p>+27649460947</p>
+<h5>EMAIL</h5>
+<p>mphomatsea@icloud.com</p>
+<h6>OPEN HOURS</h6>
+<p>Monday-Friday: 08:15-18:00</p>
+<p>Saturday-Saturday:09:00-17:00</p>
+</main>    
+<footer> &copy;ST10532691</footer>
+</body>
+</center>
+</html>

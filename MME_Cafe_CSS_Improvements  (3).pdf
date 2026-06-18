@@ -1,0 +1,572 @@
+/* ============================================================
+   MME CAFE — script.js
+   Professional & Aesthetic JavaScript
+   Works across all pages without modifying any HTML
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  /* ----------------------------------------------------------
+     1. CONSTANTS — mirror the CSS colour palette
+  ---------------------------------------------------------- */
+  const GOLD        = "#c09a3a";
+  const GOLD_LIGHT  = "#d9b86a";
+  const CHARCOAL    = "#1a1714";
+  const CREAM       = "#f0e8d8";
+  const BROWN       = "#5c3d2e";
+
+  /* ----------------------------------------------------------
+     2. UTILITY HELPERS
+  ---------------------------------------------------------- */
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+  function injectStyle(id, css) {
+    if (document.getElementById(id)) return;
+    const s = document.createElement("style");
+    s.id = id;
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  /* ----------------------------------------------------------
+     3. HEADER — shrink + shadow on scroll
+  ---------------------------------------------------------- */
+  function initHeaderScroll() {
+    const header = $("header");
+    if (!header) return;
+
+    injectStyle("mme-header-scroll", `
+      header {
+        transition: height 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease !important;
+      }
+      header.scrolled {
+        height: 58px !important;
+        box-shadow: 0 4px 28px rgba(0,0,0,0.32) !important;
+      }
+      header.scrolled .logo {
+        font-size: 1.1rem !important;
+        transition: font-size 0.35s ease;
+      }
+      header.scrolled > img {
+        height: 36px !important;
+        width:  36px !important;
+        transition: all 0.35s ease;
+      }
+    `);
+
+    const onScroll = () => {
+      header.classList.toggle("scrolled", window.scrollY > 60);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ----------------------------------------------------------
+     4. ACTIVE NAV LINK — highlight current page
+  ---------------------------------------------------------- */
+  function initActiveNav() {
+    const links = $$("nav a");
+    if (!links.length) return;
+
+    injectStyle("mme-active-nav", `
+      nav a.active-page {
+        color: ${GOLD_LIGHT} !important;
+        border-bottom-color: ${GOLD_LIGHT} !important;
+      }
+    `);
+
+    const current = window.location.pathname.split("/").pop() || "index.html";
+
+    links.forEach(link => {
+      const href = link.getAttribute("href") || "";
+      if (href === current || href.replace("|", "") === current) {
+        link.classList.add("active-page");
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------
+     5. SCROLL REVEAL — fade elements in as they enter viewport
+  ---------------------------------------------------------- */
+  function initScrollReveal() {
+    injectStyle("mme-scroll-reveal", `
+      .mme-reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.65s ease, transform 0.65s ease;
+      }
+      .mme-reveal.mme-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .mme-reveal-delay-1 { transition-delay: 0.10s; }
+      .mme-reveal-delay-2 { transition-delay: 0.20s; }
+      .mme-reveal-delay-3 { transition-delay: 0.32s; }
+      .mme-reveal-delay-4 { transition-delay: 0.44s; }
+    `);
+
+    // Targets: paragraphs, headings, table rows, iframes
+    const targets = $$("main p, main h2, main h3, main h4, main h5, main h6, main h7, main iframe, main table tr");
+
+    targets.forEach((el, i) => {
+      el.classList.add("mme-reveal");
+      const delay = Math.min(i % 4 + 1, 4);
+      el.classList.add(`mme-reveal-delay-${delay}`);
+    });
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("mme-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    targets.forEach(el => observer.observe(el));
+  }
+
+  /* ----------------------------------------------------------
+     6. HERO TYPEWRITER — animates the tagline character by character
+  ---------------------------------------------------------- */
+  function initTypewriter() {
+    const el = $(".hero-subtitle") || $("h3");
+    if (!el) return;
+
+    const original = el.textContent.trim();
+    el.textContent = "";
+    el.style.borderRight = `2px solid ${GOLD_LIGHT}`;
+    el.style.display = "inline-block";
+
+    let i = 0;
+    const type = () => {
+      if (i <= original.length) {
+        el.textContent = original.slice(0, i);
+        i++;
+        setTimeout(type, 60);
+      } else {
+        // Blink cursor then remove
+        let blinks = 0;
+        const blink = setInterval(() => {
+          el.style.borderRightColor = blinks % 2 === 0 ? "transparent" : GOLD_LIGHT;
+          if (++blinks >= 6) {
+            clearInterval(blink);
+            el.style.borderRight = "none";
+          }
+        }, 400);
+      }
+    };
+
+    // Only run if hero is in view on load
+    setTimeout(type, 600);
+  }
+
+  /* ----------------------------------------------------------
+     7. MENU LIGHTBOX — click a table cell to view item full-screen
+  ---------------------------------------------------------- */
+  function initMenuLightbox() {
+    const cells = $$("table td");
+    if (!cells.length) return;
+
+    injectStyle("mme-lightbox", `
+      #mme-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(26,23,20,0.92);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        backdrop-filter: blur(6px);
+      }
+      #mme-lightbox.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      #mme-lightbox img {
+        max-width: min(520px, 88vw);
+        max-height: 58vh;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 3px solid ${GOLD};
+        box-shadow: 0 12px 60px rgba(0,0,0,0.6);
+        transform: scale(0.88);
+        transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #mme-lightbox.open img {
+        transform: scale(1);
+      }
+      #mme-lightbox-caption {
+        text-align: center;
+        font-family: 'Playfair Display', Georgia, serif;
+      }
+      #mme-lightbox-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: ${CREAM};
+        letter-spacing: 0.04em;
+        display: block;
+      }
+      #mme-lightbox-price {
+        font-size: 1.1rem;
+        color: ${GOLD_LIGHT};
+        margin-top: 4px;
+        display: block;
+        font-family: 'DM Sans', Verdana, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+      }
+      #mme-lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 28px;
+        background: none;
+        border: 2px solid rgba(255,255,255,0.3) !important;
+        border-radius: 50% !important;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: ${CREAM};
+        font-size: 1.1rem;
+        padding: 0 !important;
+        transition: border-color 0.2s, background 0.2s, transform 0.2s !important;
+      }
+      #mme-lightbox-close:hover {
+        border-color: ${GOLD} !important;
+        background: rgba(192,154,58,0.15) !important;
+        transform: rotate(90deg) !important;
+      }
+      table td {
+        cursor: pointer;
+      }
+      table td:hover img {
+        filter: brightness(1.08);
+      }
+    `);
+
+    // Build lightbox DOM
+    const box = document.createElement("div");
+    box.id = "mme-lightbox";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "Menu item detail");
+
+    const closeBtn = document.createElement("button");
+    closeBtn.id = "mme-lightbox-close";
+    closeBtn.innerHTML = "✕";
+    closeBtn.setAttribute("aria-label", "Close");
+
+    const img = document.createElement("img");
+    img.alt = "";
+
+    const caption = document.createElement("div");
+    caption.id = "mme-lightbox-caption";
+
+    const nameEl  = document.createElement("span");
+    nameEl.id  = "mme-lightbox-name";
+    const priceEl = document.createElement("span");
+    priceEl.id = "mme-lightbox-price";
+
+    caption.appendChild(nameEl);
+    caption.appendChild(priceEl);
+    box.appendChild(closeBtn);
+    box.appendChild(img);
+    box.appendChild(caption);
+    document.body.appendChild(box);
+
+    function openLightbox(cell) {
+      const cellImg = cell.querySelector("img");
+      if (!cellImg) return;
+
+      // Extract text nodes (name + price)
+      const textNodes = [...cell.childNodes]
+        .filter(n => n.nodeType === Node.TEXT_NODE || n.nodeName === "BR")
+        .map(n => n.textContent.trim())
+        .filter(t => t.length > 0);
+
+      img.src = cellImg.src;
+      nameEl.textContent  = textNodes[0] || "";
+      priceEl.textContent = textNodes[1] || "";
+
+      box.classList.add("open");
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+    }
+
+    function closeLightbox() {
+      box.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    cells.forEach(cell => {
+      cell.addEventListener("click", () => openLightbox(cell));
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    box.addEventListener("click", e => { if (e.target === box) closeLightbox(); });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && box.classList.contains("open")) closeLightbox();
+    });
+  }
+
+  /* ----------------------------------------------------------
+     8. BACK TO TOP BUTTON
+  ---------------------------------------------------------- */
+  function initBackToTop() {
+    injectStyle("mme-back-top", `
+      #mme-top-btn {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 46px;
+        height: 46px;
+        background: ${CHARCOAL};
+        border: 2px solid ${GOLD} !important;
+        border-radius: 50% !important;
+        color: ${GOLD};
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+        z-index: 500;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+        transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      }
+      #mme-top-btn.visible {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      #mme-top-btn:hover {
+        background: ${GOLD} !important;
+        color: ${CREAM} !important;
+        transform: translateY(-3px) !important;
+      }
+    `);
+
+    const btn = document.createElement("button");
+    btn.id = "mme-top-btn";
+    btn.innerHTML = "&#8679;";
+    btn.setAttribute("aria-label", "Back to top");
+    btn.setAttribute("title", "Back to top");
+    document.body.appendChild(btn);
+
+    window.addEventListener("scroll", () => {
+      btn.classList.toggle("visible", window.scrollY > 300);
+    }, { passive: true });
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     9. TOAST NOTIFICATION — shown once on first visit
+  ---------------------------------------------------------- */
+  function initWelcomeToast() {
+    // Only show on the index / hero page
+    if (!$(".hero")) return;
+    if (sessionStorage.getItem("mme-welcomed")) return;
+
+    injectStyle("mme-toast", `
+      #mme-toast {
+        position: fixed;
+        bottom: 88px;
+        right: 32px;
+        background: ${CHARCOAL};
+        border-left: 4px solid ${GOLD};
+        border-radius: 6px;
+        padding: 14px 20px;
+        max-width: 280px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        z-index: 600;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        font-family: 'DM Sans', Verdana, sans-serif;
+      }
+      #mme-toast.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      #mme-toast p {
+        margin: 0;
+        color: ${CREAM};
+        font-size: 0.88rem;
+        line-height: 1.5;
+        max-width: 100%;
+      }
+      #mme-toast strong {
+        color: ${GOLD_LIGHT};
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.92rem;
+      }
+    `);
+
+    const toast = document.createElement("div");
+    toast.id = "mme-toast";
+    toast.innerHTML = `<p><strong>Welcome to MME Cafe 👋</strong>Tap any menu item to see it up close.</p>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add("show"), 1800);
+    setTimeout(() => {
+      toast.classList.remove("show");
+      sessionStorage.setItem("mme-welcomed", "1");
+    }, 5500);
+  }
+
+  /* ----------------------------------------------------------
+     10. FOOTER YEAR — keep copyright current automatically
+  ---------------------------------------------------------- */
+  function initFooterYear() {
+    $$("footer").forEach(footer => {
+      footer.innerHTML = footer.innerHTML.replace(
+        /©\s*ST10532691/,
+        `&copy; ${new Date().getFullYear()} ST10532691`
+      );
+    });
+  }
+
+  /* ----------------------------------------------------------
+     11. SMOOTH PAGE TRANSITIONS
+  ---------------------------------------------------------- */
+  function initPageTransitions() {
+    injectStyle("mme-page-transition", `
+      body {
+        animation: mmePageIn 0.5s ease both;
+      }
+      @keyframes mmePageIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    `);
+
+    $$("nav a").forEach(link => {
+      link.addEventListener("click", function (e) {
+        const href = this.getAttribute("href");
+        if (!href || href.startsWith("#") || href.startsWith("http")) return;
+
+        e.preventDefault();
+        document.body.style.transition = "opacity 0.3s ease";
+        document.body.style.opacity = "0";
+
+        setTimeout(() => {
+          window.location.href = href.replace(/\|$/, "");
+        }, 300);
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     12. NAV PIPE CLEANER — hide the | characters visually
+  ---------------------------------------------------------- */
+  function initNavPipeCleaner() {
+    $$("nav a").forEach(link => {
+      link.textContent = link.textContent.replace(/\|/g, "").trim();
+    });
+  }
+
+  /* ----------------------------------------------------------
+     13. TABLE CELL TEXT FORMATTER — name bold, price gold
+  ---------------------------------------------------------- */
+  function initMenuTextFormat() {
+    injectStyle("mme-menu-text", `
+      .mme-item-name {
+        display: block;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: ${CHARCOAL};
+        padding: 10px 14px 2px;
+        letter-spacing: 0.02em;
+      }
+      .mme-item-price {
+        display: block;
+        font-family: 'DM Sans', Verdana, sans-serif;
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: ${GOLD};
+        padding: 0 14px 14px;
+        letter-spacing: 0.1em;
+      }
+    `);
+
+    $$("table td").forEach(cell => {
+      const img = cell.querySelector("img");
+      if (!img) return;
+
+      // Collect all text from the cell
+      const rawTexts = [];
+      cell.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const t = node.textContent.trim();
+          if (t) rawTexts.push(t);
+        }
+      });
+
+      // Clear cell and rebuild
+      cell.innerHTML = "";
+      cell.appendChild(img);
+
+      if (rawTexts[0]) {
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "mme-item-name";
+        nameSpan.textContent = rawTexts[0];
+        cell.appendChild(nameSpan);
+      }
+      if (rawTexts[1]) {
+        const priceSpan = document.createElement("span");
+        priceSpan.className = "mme-item-price";
+        priceSpan.textContent = rawTexts[1];
+        cell.appendChild(priceSpan);
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------
+     INIT — run everything when DOM is ready
+  ---------------------------------------------------------- */
+  function init() {
+    initHeaderScroll();
+    initActiveNav();
+    initNavPipeCleaner();
+    initMenuTextFormat();
+    initScrollReveal();
+    initMenuLightbox();
+    initBackToTop();
+    initFooterYear();
+    initPageTransitions();
+    initWelcomeToast();
+
+    // Typewriter only on hero page
+    if ($(".hero-subtitle")) initTypewriter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+})();
